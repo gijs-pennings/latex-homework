@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/17 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/20 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -17,18 +17,17 @@
 % load early: https://tex.stackexchange.com/a/151864
 \RequirePackage[american]{babel}
 
-\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{amsmath, amssymb, amsthm}
 \RequirePackage{eurosym}
-\RequirePackage[margin=1in]{geometry} % aim for 100 chars per line
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
 \RequirePackage{parskip}
-\RequirePackage{wasysym}
+\RequirePackage{wasysym} % for \lightning
 \RequirePackage{xpatch}
 
 % load last
 \RequirePackage{hyperref}
-\RequirePackage{bookmark}
+\RequirePackage[margin=1in]{geometry} % after hyperref, per user manual
 
 % TODO: There seems to be 'double spacing' above the proof environment. I think
 % parskip is to blame, and the fact that proof resets topsep? This patch seems
@@ -39,6 +38,7 @@
 \xpatchcmd{\proof}{\topsep6\p@\@plus6\p@\relax}{}{}{}
 
 \newcounter{exercise}
+\counterwithin{equation}{exercise} % reset 'equation' counter when 'exercise' is incremented
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
