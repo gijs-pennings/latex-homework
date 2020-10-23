@@ -18,7 +18,9 @@
 \RequirePackage[american]{babel}
 
 \RequirePackage{amsmath, amssymb, amsthm}
+\RequirePackage{enumitem}
 \RequirePackage{eurosym}
+\RequirePackage{graphicx}
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
 \RequirePackage{parskip}
@@ -63,8 +65,8 @@
 \renewcommand*{\epsilon}{\varepsilon}
 \newcommand*{\transpose}{^\top}
 
-% define * as \cdot: https://tex.stackexchange.com/a/563858
-\DeclareMathSymbol{*}{\mathbin}{symbols}{"01}
+% define * as \cdot: https://tex.stackexchange.com/a/563857
+\mathcode`\*=\number\cdot
 
 % https://tex.stackexchange.com/a/43009
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
