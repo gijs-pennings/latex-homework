@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/20 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/24 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -31,6 +31,10 @@
 \RequirePackage{hyperref}
 \RequirePackage[margin=1in]{geometry} % after hyperref, per user manual
 
+% replace enskip by space in bookmarks: https://tex.stackexchange.com/a/330980
+% TODO: I don't know why it must be '~ ' instead of ' '
+\pdfstringdefDisableCommands{\def\enskip{~ }}
+
 % TODO: There seems to be 'double spacing' above the proof environment. I think
 % parskip is to blame, and the fact that proof resets topsep? This patch seems
 % to work, but I don't know why, exactly. It's probably also necessary for other
@@ -47,10 +51,15 @@
     \ifnum\theexercise>0\newpage\fi%
     \@exercise%
 }}
-\newcommand*{\@exercise}{%
+\newcommand*{\@exercise}[1][-1]{%
     \stepcounter{exercise}%
     \setcounter{secnumdepth}{0}% disable numbering, keeping bookmark: https://tex.stackexchange.com/a/384985
-    \section{Exercise \arabic{exercise}}%
+    \section{%
+        Exercise \arabic{exercise}%
+        \ifnum#1>-1%
+            \enskip(#1 pt\ifnum#1=1\else s\fi)%
+        \fi%
+    }%
     \setcounter{secnumdepth}{3}%
 }
 
