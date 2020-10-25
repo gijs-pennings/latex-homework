@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/24 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/26 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -26,6 +26,7 @@
 \RequirePackage{parskip}
 \RequirePackage{wasysym} % for \lightning
 \RequirePackage{xpatch}
+\RequirePackage{xstring}
 
 % load last
 \RequirePackage{hyperref}
@@ -40,7 +41,7 @@
 \xpatchcmd{\proof}{\topsep6\p@\@plus6\p@\relax}{}{}{}
 
 \newcounter{exercise}
-\counterwithin{equation}{exercise} % reset 'equation' counter when 'exercise' is incremented
+\counterwithin{equation}{exercise} % reset equation counter for each exercise
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
@@ -59,6 +60,12 @@
     \setcounter{secnumdepth}{3}%
 }
 
+\newcommand*{\name}[1]{%
+    \StrSubstitute{#1}{.}{.\,}[\@var]%
+    \StrSubstitute[1]{\@var}{\, }{~}[\@var]%
+    \StrSubstitute{\@var}{ }{~}%
+}
+
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
 \newcommand*{\Q}{\mathbb Q}
@@ -70,8 +77,9 @@
 \renewcommand*{\epsilon}{\varepsilon}
 \newcommand*{\transpose}{^\top}
 
-% define * as \cdot: https://tex.stackexchange.com/a/563857
-\mathcode`\*=\number\cdot
+% define * as \cdot: https://tex.stackexchange.com/a/563858 and libertinust1math.sty
+% use \ast for normal asterisk symbol
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C}
 
 % https://tex.stackexchange.com/a/43009
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
