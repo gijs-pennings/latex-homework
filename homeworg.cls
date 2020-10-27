@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/26 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/27 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -62,9 +62,10 @@
 
 \newcommand*{\name}[1]{%
     \StrSubstitute{#1}{.}{.\,}[\@var]%
-    \StrSubstitute[1]{\@var}{\, }{~}[\@var]%
+    \StrSubstitute{\@var}{\, }{~}[\@var]%
     \StrSubstitute{\@var}{ }{~}%
 }
+\newcommand*{\homeworgauthor}{\name{G.P\kern-,1em.S. Pennings}} % TODO: why , instead of .
 
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
@@ -77,6 +78,8 @@
 \renewcommand*{\epsilon}{\varepsilon}
 \newcommand*{\transpose}{^\top}
 
+\DeclareMathOperator{\diag}{diag}
+
 % define * as \cdot: https://tex.stackexchange.com/a/563858 and libertinust1math.sty
 % use \ast for normal asterisk symbol
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C}
@@ -87,18 +90,24 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \DeclarePairedDelimiter{\inner}{\langle}{\rangle} % bad name
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiterX{\Set}[1]{\{}{\}}{\,#1\,}
 
 \let\@abs\abs
 \let\@ceil\ceil
 \let\@floor\floor
 \let\@inner\inner
 \let\@norm\norm
+\let\@set\set
+\let\@Set\Set
 
 \def\abs{\@ifstar{\@abs}{\@abs*}}
 \def\ceil{\@ifstar{\@ceil}{\@ceil*}}
 \def\floor{\@ifstar{\@floor}{\@floor*}}
 \def\inner{\@ifstar{\@inner}{\@inner*}}
 \def\norm{\@ifstar{\@norm}{\@norm*}}
+\def\set{\@ifstar{\@set}{\@set*}}
+\def\Set{\@ifstar{\@Set}{\@Set*}}
 
 % https://gist.github.com/godbyk/1176128
 \DeclareUnicodeCharacter{20AC}{\euro}
