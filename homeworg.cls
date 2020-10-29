@@ -26,12 +26,17 @@
 \RequirePackage[margin=1in]{geometry} % after hyperref, per user manual
 
 % Without this patch, there is too much vertical spacing above and below the
-% proof environment. I've not found other environments that suffer from this.
-% This solution was chosen because it requires no additional packages. I think
-% the combination of parskip and use of topsep in proof is the cause. See
-% questions 192722, 339440, 522809 on https://tex.stackexchange.com
-\let\@proof\proof
-\renewenvironment{proof}{\begin{@proof}\unskip}{\end{@proof}\unskip}
+% proof environment. I've found no other environments that suffer from this,
+% yet. This solution (copying & modifying the definition in amsthm.sty) was
+% chosen because it requires no additional packages. I think the combination of
+% parskip and the reassignment of \topsep in the original \proof is the cause.
+% 192722, 339440, 522809 on https://tex.stackexchange.com
+\renewenvironment{proof}[1][\proofname]{%
+    \par\pushQED{\qed}\normalfont% removed: \topsep6\p@\@plus6\p@\relax
+    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces%
+}{%
+    \popQED\endtrivlist\@endpefalse%
+}
 
 \counterwithin{equation}{section} % reset equation counter for each section
 \newcommand*{\exercise}{\@ifstar{%
