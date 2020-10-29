@@ -1,14 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/27 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/29 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
 \LoadClass[12pt, a4paper]{article}
 
-% font choice overview: https://tex.stackexchange.com/a/59706
 % load before fontenc: https://tex.stackexchange.com/a/2869
-\RequirePackage{libertine}
+\RequirePackage{libertinus-type1}
 \RequirePackage{libertinust1math}
 
 \RequirePackage[T1]{fontenc}
@@ -18,15 +17,10 @@
 \RequirePackage[american]{babel}
 
 \RequirePackage{amsmath, amssymb, amsthm}
-\RequirePackage{enumitem}
-\RequirePackage{eurosym}
-\RequirePackage{graphicx}
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
 \RequirePackage{parskip}
-\RequirePackage{wasysym} % for \lightning
 \RequirePackage{xpatch}
-\RequirePackage{xstring}
 
 % load last
 \RequirePackage{hyperref}
@@ -60,12 +54,8 @@
     \setcounter{secnumdepth}{3}%
 }
 
-\newcommand*{\name}[1]{%
-    \StrSubstitute{#1}{.}{.\,}[\@var]%
-    \StrSubstitute{\@var}{\, }{~}[\@var]%
-    \StrSubstitute{\@var}{ }{~}%
-}
-\newcommand*{\homeworgauthor}{\name{G.P\kern-,1em.S. Pennings}} % TODO: why , instead of .
+% TODO: why , instead of .
+\newcommand*{\homeworgauthor}{G.\,P\kern-,05em.\,S.~Pennings}
 
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
@@ -73,7 +63,6 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
-\newcommand*{\contradiction}{\lightning} % text mode
 \renewcommand*{\emptyset}{\varnothing}
 \renewcommand*{\epsilon}{\varepsilon}
 \newcommand*{\transpose}{^\top}
@@ -108,6 +97,3 @@
 \def\norm{\@ifstar{\@norm}{\@norm*}}
 \def\set{\@ifstar{\@set}{\@set*}}
 \def\Set{\@ifstar{\@Set}{\@Set*}}
-
-% https://gist.github.com/godbyk/1176128
-\DeclareUnicodeCharacter{20AC}{\euro}
