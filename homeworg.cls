@@ -38,7 +38,6 @@
     \popQED\endtrivlist\@endpefalse%
 }
 
-\counterwithin{equation}{section} % reset equation counter for each section
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
@@ -57,8 +56,7 @@
     \setcounter{secnumdepth}{3}%
 }
 
-% TODO: why , instead of .
-\newcommand*{\homeworgauthor}{G.\,P\kern-,05em.\,S.~Pennings}
+\newcommand*{\homeworgauthor}{G.\,P\kern-,05em.\,S.~Pennings} % TODO: why , instead of .
 
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
@@ -70,6 +68,18 @@
 \renewcommand*{\circ}{\mathbin\@circ} % TODO: why is it so cramped in the first place?
 \renewcommand*{\emptyset}{\varnothing}
 \renewcommand*{\epsilon}{\varepsilon}
+
+\counterwithin{equation}{section} % reset equation counter for each section
+
+\newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
+\newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
+
+\theoremstyle{hw-plain}
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{theorem}[equation]{Theorem}
+
+\theoremstyle{hw-definition}
+\newtheorem{definition}[equation]{Definition}
 
 \DeclareMathOperator{\diag}{diag}
 
