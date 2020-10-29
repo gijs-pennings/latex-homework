@@ -33,19 +33,18 @@
 \let\@proof\proof
 \renewenvironment{proof}{\begin{@proof}\unskip}{\end{@proof}\unskip}
 
-\newcounter{exercise}
-\counterwithin{equation}{exercise} % reset equation counter for each exercise
+\counterwithin{equation}{section} % reset equation counter for each section
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
-    \ifnum\theexercise>0\newpage\fi%
+    \ifnum\thesection>0\newpage\fi%
     \@exercise%
 }}
 \newcommand*{\@exercise}[1][-1]{%
-    \stepcounter{exercise}%
     \setcounter{secnumdepth}{0}% disable numbering, keeping bookmark: https://tex.stackexchange.com/a/384985
+    \stepcounter{section}% manually increase section counter, since ^
     \section{%
-        Exercise \arabic{exercise}%
+        Exercise \arabic{section}%
         \ifnum#1>-1\texorpdfstring{% hide no. points from bookmark: https://tex.stackexchange.com/a/10557 (enskip produces error anyway)
             \enskip(#1 pt\ifnum#1=1\else s\fi)%
         }{}\fi%
