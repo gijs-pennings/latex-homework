@@ -20,19 +20,18 @@
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
 \RequirePackage{parskip}
-\RequirePackage{xpatch}
 
 % load last
 \RequirePackage{hyperref}
 \RequirePackage[margin=1in]{geometry} % after hyperref, per user manual
 
-% TODO: There seems to be 'double spacing' above the proof environment. I think
-% parskip is to blame, and the fact that proof resets topsep? This patch seems
-% to work, but I don't know why, exactly. It's probably also necessary for other
-% environments (but I don't use those too often).
-% https://tex.stackexchange.com/a/232659
-% https://tex.stackexchange.com/a/344998 (pretocmd may be interesting)
-\xpatchcmd{\proof}{\topsep6\p@\@plus6\p@\relax}{}{}{}
+% Without this patch, there is too much vertical spacing above and below the
+% proof environment. I've not found other environments that suffer from this.
+% This solution was chosen because it requires no additional packages. I think
+% the combination of parskip and use of topsep in proof is the cause. See
+% questions 192722, 339440, 522809 on https://tex.stackexchange.com
+\let\@proof\proof
+\renewenvironment{proof}{\begin{@proof}\unskip}{\end{@proof}\unskip}
 
 \newcounter{exercise}
 \counterwithin{equation}{exercise} % reset equation counter for each exercise
