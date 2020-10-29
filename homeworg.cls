@@ -62,9 +62,10 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
+\let\@circ\circ
+\renewcommand*{\circ}{\mathbin\@circ} % TODO: why is it so cramped in the first place?
 \renewcommand*{\emptyset}{\varnothing}
 \renewcommand*{\epsilon}{\varepsilon}
-\newcommand*{\transpose}{^\top}
 
 \DeclareMathOperator{\diag}{diag}
 
