@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/29 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/30 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -38,6 +38,7 @@
     \popQED\endtrivlist\@endpefalse%
 }
 
+\newcommand*{\exercisename}{Exercise}
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
@@ -48,13 +49,17 @@
     \setcounter{secnumdepth}{0}% disable numbering, keeping bookmark: https://tex.stackexchange.com/a/384985
     \stepcounter{section}% manually increase section counter, since ^
     \section{%
-        Exercise \arabic{section}%
+        \exercisename{} \thesection%
         \ifnum#1>-1\texorpdfstring{% hide no. points from bookmark: https://tex.stackexchange.com/a/10557 (enskip produces error anyway)
             \enskip(#1 pt\ifnum#1=1\else s\fi)%
         }{}\fi%
     }%
+    \label{ex:\thesection}%
     \setcounter{secnumdepth}{3}%
 }
+% \nameref is no option, since it always uses the latest \thesection
+% \ref is also no option, since the sections are not actually numbered
+\newcommand*{\exref}[1]{\hyperref[ex:#1]{\exercisename{} #1}}
 
 \newcommand*{\homeworgauthor}{G.\,P\kern-,05em.\,S.~Pennings} % TODO: why , instead of .
 
