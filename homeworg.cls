@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/30 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/10/31 Gijs's homework template]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -22,7 +22,7 @@
 \RequirePackage{parskip}
 
 % load last
-\RequirePackage{hyperref}
+\RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
 \RequirePackage[margin=1in]{geometry} % after hyperref, per user manual
 
 % Without this patch, there is too much vertical spacing above and below the
@@ -61,7 +61,11 @@
 % \ref is also no option, since the sections are not actually numbered
 \newcommand*{\exref}[1]{\hyperref[ex:#1]{\exercisename{} #1}}
 
-\newcommand*{\homeworgauthor}{G.\,P\kern-,05em.\,S.~Pennings} % TODO: why , instead of .
+\newcommand*{\homeworgauthor}{\texorpdfstring{%
+    G.\,P\kern-,05em.\,S.~Pennings% TODO: why , instead of .
+}{%
+    G.P.S. Pennings%
+}}
 
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
