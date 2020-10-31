@@ -16,6 +16,7 @@
 % load early: https://tex.stackexchange.com/a/151864
 \RequirePackage[american]{babel}
 
+\RequirePackage{aliascnt}
 \RequirePackage{amsmath, amssymb, amsthm}
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
@@ -38,7 +39,7 @@
     \popQED\endtrivlist\@endpefalse%
 }
 
-\newcommand*{\exercisename}{Exercise}
+\providecommand{\exercisename}{Exercise}
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
@@ -83,12 +84,25 @@
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
 \newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
 
+% The string used by \autoref (e.g. 'Lemma') depends on the counter of the
+% command. Since all theorem-type commands use the equation counter, you'd get
+% the wrong string (i.e. 'Equation'). We fool hyperref by defining an alias
+% counter, and we define the right string for it (e.g. \lemmaautorefname).
+% https://tex.stackexchange.com/a/113540
+% TODO: add \expandafter to \MakeUppercase?
+\newcommand*{\NewTheorem}[1]{%
+    \newaliascnt{#1}{equation}%
+    \newtheorem{#1}[#1]{\MakeUppercase#1}%
+    \aliascntresetthe{#1}%
+    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}%
+}
+
 \theoremstyle{hw-plain}
-\newtheorem{lemma}[equation]{Lemma}
-\newtheorem{theorem}[equation]{Theorem}
+\NewTheorem{lemma}
+\NewTheorem{theorem}
 
 \theoremstyle{hw-definition}
-\newtheorem{definition}[equation]{Definition}
+\NewTheorem{definition}
 
 \DeclareMathOperator{\diag}{diag}
 
