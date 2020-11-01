@@ -1,6 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/10/31 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/01 Gijs's homework template]
 
+% default = false
+\newif\if@altquants
+
+\DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
@@ -9,6 +13,16 @@
 % load before fontenc: https://tex.stackexchange.com/a/2869
 \RequirePackage{libertinus-type1}
 \RequirePackage{libertinust1math}
+
+\if@altquants
+    % https://tex.stackexchange.com/a/254626 and stix2.sty
+    \DeclareFontEncoding{LS1}{}{}
+    \DeclareFontSubstitution{LS1}{stix2}{m}{n}
+    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n} % libertinust1math (also) defines 'operators'
+    \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
+    \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
+    \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8} % TODO: not working? (amsmath?)
+\fi
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
@@ -51,7 +65,7 @@
     \stepcounter{section}% manually increase section counter, since ^
     \section{%
         \exercisename{} \thesection%
-        \ifnum#1>-1\texorpdfstring{% hide no. points from bookmark: https://tex.stackexchange.com/a/10557 (enskip produces error anyway)
+        \ifnum#1>-1\texorpdfstring{% hide no. points from bookmark: https://tex.stackexchange.com/a/10557 (\enskip produces error anyway)
             \enskip(#1 pt\ifnum#1=1\else s\fi)%
         }{}\fi%
     }%
