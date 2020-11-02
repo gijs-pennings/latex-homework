@@ -1,3 +1,7 @@
+% Copyright (c) 2020, Gijs Pennings. Licensed under the ISC license.
+% For the full license, documentation, and the latest version, visit
+% https://github.com/gijs-pennings/latex-homework.
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{homeworg}[2020/11/01 Gijs's homework template]
 
