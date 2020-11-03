@@ -51,14 +51,14 @@
 
 % load last
 \RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
-\if@narrowmargins\RequirePackage[margin=1in]{geometry}\fi % after hyperref, per user manual
+\if@narrowmargins\RequirePackage[margin=1in]{geometry}\fi % after hyperref, per manual
 
 % Without this patch, there is too much vertical spacing above and below the
 % proof environment. I've found no other environments that suffer from this,
 % yet. This solution (copying & modifying the definition in amsthm.sty) was
 % chosen because it requires no additional packages. I think the combination of
 % parskip and the reassignment of \topsep in the original \proof is the cause.
-% 192722, 339440, 522809 on https://tex.stackexchange.com
+% 192722, 339440, 522809 on https://tex.stackexchange.com/q/
 \renewenvironment{proof}[1][\proofname]{%
     \par\pushQED{\qed}\normalfont% removed: \topsep6\p@\@plus6\p@\relax
     \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces%
@@ -87,7 +87,7 @@
     \setcounter{secnumdepth}{3}%
 }
 
-\newcommand*{\homeworgauthor}{\texorpdfstring{%
+\newcommand*{\homeworgauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
     G.\,P\kern-,05em.\,S.~Pennings% TODO: why , instead of .
 }{%
     G.P.S. Pennings%
@@ -111,10 +111,10 @@
 % https://tex.stackexchange.com/a/113540
 % TODO: add \expandafter to \MakeUppercase?
 \newcommand*{\NewTheorem}[1]{%
+    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}%
     \newaliascnt{#1}{equation}%
     \newtheorem{#1}[#1]{\MakeUppercase#1}%
-    \aliascntresetthe{#1}%
-    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}%
+    \aliascntresetthe{#1}% see 1.2 of http://mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
 \theoremstyle{hw-plain}
@@ -126,7 +126,8 @@
 
 \DeclareMathOperator{\diag}{diag}
 
-\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % use \ast for asterisk symbol
+% from libertinust1math.sty
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % define * as \cdot (use \ast for asterisk symbol)
 \DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
 
