@@ -99,11 +99,6 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
-\let\@circ\circ
-\renewcommand*{\circ}{\mathbin\@circ} % TODO: why is it so cramped in the first place?
-\renewcommand*{\emptyset}{\varnothing}
-\renewcommand*{\epsilon}{\varepsilon}
-
 \counterwithin{equation}{section} % reset equation counter for each section
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
@@ -131,9 +126,9 @@
 
 \DeclareMathOperator{\diag}{diag}
 
-% define * as \cdot: https://tex.stackexchange.com/a/563858 and libertinust1math.sty
-% use \ast for normal asterisk symbol
-\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C}
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % use \ast for asterisk symbol
+\DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
+\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
 
 % https://tex.stackexchange.com/a/43009
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
