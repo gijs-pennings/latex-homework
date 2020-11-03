@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/01 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/03 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -67,6 +67,7 @@
 }
 
 \providecommand{\exercisename}{Exercise}
+\newaliascnt{exercise}{section}
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
@@ -82,12 +83,9 @@
             \enskip(#1 pt\ifnum#1=1\else s\fi)%
         }{}\fi%
     }%
-    \label{ex:\thesection}%
+    \addtocounter{section}{-1}\refstepcounter{exercise}% associate correct name with label: https://tex.stackexchange.com/a/171436
     \setcounter{secnumdepth}{3}%
 }
-% \nameref is no option, since it always uses the latest \thesection
-% \ref is also no option, since the sections are not actually numbered
-\newcommand*{\exref}[1]{\hyperref[ex:#1]{\exercisename{} #1}}
 
 \newcommand*{\homeworgauthor}{\texorpdfstring{%
     G.\,P\kern-,05em.\,S.~Pennings% TODO: why , instead of .
