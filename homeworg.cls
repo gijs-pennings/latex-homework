@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/03 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/05 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -131,14 +131,25 @@
 \DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
 
+% see 3.6 of http://mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
+% \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
+% TODO: \delimsize vs \middle? add \allowbreak? \mathopen \mathclose correct?
+\newcommand*{\@renewmid}{\renewcommand*{\mid}{%
+    \mathclose{}%
+    \mathchoice{\;}{\;}{\,}{\,}%
+    \delimsize\vert%
+    \mathchoice{\;}{\;}{\,}{\,}%
+    \mathopen{}%
+}}
+
 % https://tex.stackexchange.com/a/43009
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \DeclarePairedDelimiter{\inner}{\langle}{\rangle} % bad name
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-\DeclarePairedDelimiter{\set}{\{}{\}}
-\DeclarePairedDelimiterX{\Set}[1]{\{}{\}}{\,#1\,}
+\DeclarePairedDelimiterX{\set}[1]{\{}{\}}{\@renewmid#1}
+\DeclarePairedDelimiterX{\Set}[1]{\{}{\}}{\@renewmid\nonscript\,#1\nonscript\,} % \nonscript suppresses \, in (script)script style
 
 \let\@abs\abs
 \let\@ceil\ceil
