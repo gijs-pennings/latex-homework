@@ -134,9 +134,16 @@
 \DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
 
+% fix inconsistencies with libertinust1math, use mathtools's conventions
+\renewcommand*{\vcentcolon}{\!:\!} % extremely dirty fix: both vertical and horizontal spacing is off
+\DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
+\DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
+\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (black sheep)
+\DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
+
 % see 3.6 of http://mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
 % \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
-% TODO: \delimsize vs \middle? add \allowbreak? \mathopen \mathclose correct?
+% TODO: \delimsize vs \middle? add \allowbreak? \mathopen, \mathclose correct?
 \newcommand*{\@renewmid}{\renewcommand*{\mid}{%
     \mathclose{}%
     \mathchoice{\;}{\;}{\,}{\,}%
