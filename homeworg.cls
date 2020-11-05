@@ -99,6 +99,9 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
+\newtagform{brackets}{[}{]}
+\usetagform{brackets}
+
 \counterwithin{equation}{section} % reset equation counter for each section
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
