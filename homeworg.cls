@@ -136,7 +136,6 @@
 
 % from libertinust1math.sty
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % define * as \cdot (use \ast for asterisk symbol)
-\DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
 
 % after amssymb is loaded, since it defines \nexists
