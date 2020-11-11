@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/05 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/11 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -21,16 +21,6 @@
 % load before fontenc: https://tex.stackexchange.com/a/2869
 \RequirePackage{libertinus-type1}
 \RequirePackage{libertinust1math}
-
-\if@altquants
-    % https://tex.stackexchange.com/a/254626 and stix2.sty
-    \DeclareFontEncoding{LS1}{}{}
-    \DeclareFontSubstitution{LS1}{stix2}{m}{n}
-    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n} % libertinust1math (also) defines 'operators'
-    \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
-    \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
-    \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8} % TODO: not working? (amsmath?)
-\fi
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
@@ -52,6 +42,9 @@
 % load last
 \RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
 \if@narrowmargins\RequirePackage[margin=1in]{geometry}\fi % after hyperref, per manual
+
+% remove \, from all text when used for pdf fields (e.g. author)
+\pdfstringdefDisableCommands{\def\,{}}
 
 % Without this patch, there is too much vertical spacing above and below the
 % proof environment. I've found no other environments that suffer from this,
@@ -93,6 +86,7 @@
     G.P.S. Pennings%
 }}
 
+\renewcommand*{\P}{\mathbb P} % for primes or probability, overwrites shorthand for \textparagraph
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
 \newcommand*{\Q}{\mathbb Q}
@@ -106,6 +100,7 @@
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
 \newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
+\newtheoremstyle{hw-remark}{}{}{}{}{\itshape}{ --- }{0pt}{} % unused
 
 % The string used by \autoref (e.g. 'Lemma') depends on the counter of the
 % command. Since all theorem-type commands use the equation counter, you'd get
@@ -128,11 +123,26 @@
 \NewTheorem{definition}
 
 \DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\interior}{int}
 
 % from libertinust1math.sty
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % define * as \cdot (use \ast for asterisk symbol)
 \DeclareMathSymbol{\circ}{\mathbin}{symbols}{"FD} % bug? should be bin instead of ord
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
+
+% after amssymb is loaded, since it defines \nexists
+\if@altquants
+    % https://tex.stackexchange.com/a/254626 and stix2.sty
+    \DeclareFontEncoding{LS1}{}{}
+    \DeclareFontSubstitution{LS1}{stix2}{m}{n}
+    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n} % libertinust1math (also) defines 'operators'
+    \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
+    \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
+    \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8}
+\else
+    \DeclareMathSymbol{\nexists}{\mathord}{operators}{"C8}
+\fi
 
 % fix inconsistencies with libertinust1math, use mathtools's conventions
 \renewcommand*{\vcentcolon}{\!:\!} % extremely dirty fix: both vertical and horizontal spacing is off
