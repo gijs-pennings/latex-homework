@@ -32,6 +32,7 @@
 \RequirePackage{amsmath, amssymb, amsthm}
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
+\RequirePackage{mleftright}
 \RequirePackage{parskip}
 
 \if@boldvecs
@@ -42,6 +43,13 @@
 % load last
 \RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
 \if@narrowmargins\RequirePackage[margin=1in]{geometry}\fi % after hyperref, per manual
+
+% \left and \right introduce extra space around the delimiters. To remove this,
+% we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
+% package mleftright defines commands that do this automatically (\mleft and
+% \mright). The command below redefines the normal \left and \right as well.
+% https://tex.stackexchange.com/a/2610
+\mleftright
 
 % remove \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
