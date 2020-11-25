@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/11 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/25 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -21,6 +21,12 @@
 % load before fontenc: https://tex.stackexchange.com/a/2869
 \RequirePackage{libertinus-type1}
 \RequirePackage{libertinust1math}
+
+% extrasp=0pt  disables extra space after line-ending period
+% mono         disables space stretching and shrinking
+% scale=.94    scales size to roughly equal Libertinus's
+% varqu        replaces slanted by upright quotes (for code)
+\RequirePackage[extrasp=0pt, mono, scale=.94, varqu]{inconsolata}
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
