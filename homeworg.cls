@@ -57,7 +57,7 @@
 % https://tex.stackexchange.com/a/2610
 \mleftright
 
-% remove \, from all text when used for pdf fields (e.g. author)
+% removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
 
 % Without this patch, there is too much vertical spacing above and below the
@@ -82,15 +82,15 @@
     \@exercise%
 }}
 \newcommand*{\@exercise}[1][-1]{%
-    \setcounter{secnumdepth}{0}% disable numbering, keeping bookmark: https://tex.stackexchange.com/a/384985
-    \stepcounter{section}% manually increase section counter, since ^
-    \begingroup\edef\x{\endgroup% expand \thesection for \nameref: https://tex.stackexchange.com/a/569405
+    \setcounter{secnumdepth}{0}% disables numbering, keeps bookmark: https://tex.stackexchange.com/a/384985
+    \stepcounter{section}% increases section counter manually, since ^
+    \begingroup\edef\x{\endgroup% expands \thesection for \nameref: https://tex.stackexchange.com/a/569405
         \noexpand\section[\exercisename{} \thesection]{%
             \exercisename~\thesection%
             \ifnum#1>-1\enskip(#1 pt\ifnum#1=1\else s\fi)\fi%
         }%
     }\x%
-    \addtocounter{section}{-1}\refstepcounter{exercise}% associate correct name with label: https://tex.stackexchange.com/a/171436
+    \addtocounter{section}{-1}\refstepcounter{exercise}% associates correct name with label: https://tex.stackexchange.com/a/171436
     \setcounter{secnumdepth}{3}%
 }
 
@@ -110,7 +110,7 @@
 \newtagform{brackets}{[}{]}
 \usetagform{brackets}
 
-\counterwithin{equation}{section} % reset equation counter for each section
+\counterwithin{equation}{section} % resets equation counter for each section
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
 \newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
@@ -141,8 +141,8 @@
 \DeclareMathOperator{\interior}{int}
 
 % from libertinust1math.sty
-\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % define * as \cdot (use \ast for asterisk symbol)
-\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % use variant as main epsilon
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % defines * as \cdot (use \ast for asterisk symbol)
+\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % replaces epsilon by variant
 
 % after amssymb is loaded, since it defines \nexists
 \if@altquants
@@ -157,8 +157,8 @@
     \DeclareMathSymbol{\nexists}{\mathord}{operators}{"C8}
 \fi
 
-% fix inconsistencies with libertinust1math, use mathtools's conventions
-\renewcommand*{\vcentcolon}{\!:\!} % extremely dirty fix: both vertical and horizontal spacing is off
+% fixes inconsistencies with libertinust1math, use mathtools's conventions
+\renewcommand*{\vcentcolon}{\!:\!} % dirty fix: both vertical and horizontal spacing is off
 \DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
 \DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
 \renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (black sheep)
