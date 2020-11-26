@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/25 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/11/26 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -24,7 +24,7 @@
 
 % extrasp=0pt  disables extra space after line-ending period
 % mono         disables space stretching and shrinking
-% scale=.94    scales size to roughly equal Libertinus's
+% scale=.94    scales size to roughly match Libertinus's x-height
 % varqu        replaces slanted by upright quotes (for code)
 \RequirePackage[extrasp=0pt, mono, scale=.94, varqu]{inconsolata}
 
@@ -142,7 +142,8 @@
 
 % from libertinust1math.sty
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % defines * as \cdot (use \ast for asterisk symbol)
-\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{34} % replaces epsilon by variant
+\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22} % swaps definition of \epsilon ..
+\DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F} % .. and \varepsilon
 
 % after amssymb is loaded, since it defines \nexists
 \if@altquants
