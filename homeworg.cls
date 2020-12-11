@@ -7,11 +7,9 @@
 
 % default = false
 \newif\if@altquants
-\newif\if@boldvecs
 \newif\if@narrowmargins \@narrowmarginstrue
 
 \DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
-\DeclareOption{boldvecs}{\@boldvecstrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -19,8 +17,8 @@
 \LoadClass[12pt, a4paper]{article}
 
 % load before fontenc: https://tex.stackexchange.com/a/2869
-\RequirePackage{libertinus-type1}
-\RequirePackage{libertinust1math}
+\RequirePackage[serif]{libertinus-type1}
+\RequirePackage[lcgreekalpha]{libertinust1math} % lcgreekalpha enables e.g. \mathbf for lower case Greek letters
 
 % extrasp=0pt  disables extra space after sentence-ending period
 % mono         disables space stretching and shrinking
@@ -40,11 +38,6 @@
 \RequirePackage{microtype}
 \RequirePackage{mleftright}
 \RequirePackage{parskip}
-
-\if@boldvecs
-    \RequirePackage{bm}
-    \renewcommand*{\vec}[1]{\bm{#1}}
-\fi
 
 % load last
 \RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
