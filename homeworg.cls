@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/11/26 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/12/12 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -22,7 +22,7 @@
 \RequirePackage{libertinus-type1}
 \RequirePackage{libertinust1math}
 
-% extrasp=0pt  disables extra space after line-ending period
+% extrasp=0pt  disables extra space after sentence-ending period
 % mono         disables space stretching and shrinking
 % scale=.94    scales size to roughly match Libertinus's x-height
 % varqu        replaces slanted by upright quotes (for code)
@@ -95,7 +95,7 @@
 }
 
 \newcommand*{\homeworgauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
-    G.\,P\kern-,05em.\,S.~Pennings% TODO: why , instead of .
+    G.\,P\kern-,075em.\,S.~Pennings% TODO: why , instead of .
 }{%
     G.P.S. Pennings%
 }}
@@ -135,10 +135,6 @@
 
 \theoremstyle{hw-definition}
 \NewTheorem{definition}
-
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\interior}{int}
 
 % from libertinust1math.sty
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % defines * as \cdot (use \ast for asterisk symbol)
