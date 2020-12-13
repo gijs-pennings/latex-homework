@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/12/12 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/12/13 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -49,6 +49,8 @@
 % \mright). The command below redefines the normal \left and \right as well.
 % https://tex.stackexchange.com/a/2610
 \mleftright
+
+\hypersetup{pdfcreator={LaTeX with homeworg}}
 
 % removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
