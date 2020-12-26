@@ -3,13 +3,15 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/12/13 Gijs's homework template]
+\ProvidesClass{homeworg}[2020/12/27 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
 \newif\if@narrowmargins \@narrowmarginstrue
+\newif\if@officialeuro
 
 \DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
+\DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -39,9 +41,19 @@
 \RequirePackage{mleftright}
 \RequirePackage{parskip}
 
+\if@officialeuro
+    \RequirePackage[left]{eurosym}
+    \RequirePackage{graphicx}
+    \let\@euro\euro
+    \def\euro{\scalebox{.94}{\@euro}} % scales size to roughly match Libertinus's cap height
+    \DeclareUnicodeCharacter{20AC}{\euro}
+\fi
+
 % load last
 \RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
-\if@narrowmargins\RequirePackage[margin=1in]{geometry}\fi % after hyperref, per manual
+\if@narrowmargins
+    \RequirePackage[margin=1in]{geometry} % after hyperref, per manual
+\fi
 
 % \left and \right introduce extra space around the delimiters. To remove this,
 % we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
