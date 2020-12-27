@@ -40,12 +40,12 @@
 \RequirePackage{microtype}
 \RequirePackage{mleftright}
 \RequirePackage{parskip}
+\RequirePackage{scalerel}
 
 \if@officialeuro
     \RequirePackage[left]{eurosym}
-    \RequirePackage{graphicx}
     \let\@euro\euro
-    \def\euro{\scalebox{.94}{\@euro}} % scales size to roughly match Libertinus's cap height
+    \def\euro{\scalerel*{$\@euro$}{C}}
     \DeclareUnicodeCharacter{20AC}{\euro}
 \fi
 
@@ -148,12 +148,17 @@
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22} % swaps definition of \epsilon ..
 \DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F} % .. and \varepsilon
 
+% https://tex.stackexchange.com/a/254626 and fonttable package
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontSubstitution{LS1}{stix2}{m}{n}
+
+\DeclareSymbolFont{stix2-symbols3}{LS1}{stix2bb}{m}{n}
+\DeclareMathSymbol{\@one}{\mathord}{stix2-symbols3}{"31}
+\def\1{\scalerel*{\@one}{1}}
+
 % after amssymb is loaded, since it defines \nexists
 \if@altquants
-    % https://tex.stackexchange.com/a/254626 and stix2.sty
-    \DeclareFontEncoding{LS1}{}{}
-    \DeclareFontSubstitution{LS1}{stix2}{m}{n}
-    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n} % libertinust1math (also) defines 'operators'
+    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n}
     \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
     \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
     \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8}
