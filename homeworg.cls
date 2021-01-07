@@ -57,14 +57,14 @@
     \RequirePackage[margin=1in]{geometry} % after hyperref, per manual
 \fi
 
+\hypersetup{pdfcreator={LaTeX with homeworg}}
+
 % \left and \right introduce extra space around the delimiters. To remove this,
 % we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
 % package mleftright defines commands that do this automatically (\mleft and
 % \mright). The command below redefines the normal \left and \right as well.
 % https://tex.stackexchange.com/a/2610
 \mleftright
-
-\hypersetup{pdfcreator={LaTeX with homeworg}}
 
 % removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
@@ -104,10 +104,16 @@
 }
 
 \newcommand*{\homeworgauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
-    G.\,P\kern-,075em.\,S.~Pennings% TODO: why , instead of .
+    G.\,P\kern-.075em.\,S.~Pennings%
 }{%
     G.P.S. Pennings%
 }}
+
+% https://tex.stackexchange.com/a/49326
+% Far from perfect: does not alter left side ('w' needs it) which makes it worse
+% for most lower case, too short for some ('A'), too long for others ('U')
+% TODO: add similar command for overline?
+\newcommand{\varunderline}[2][1]{\underline{#2\mkern-#1mu}\mkern#1mu}
 
 \renewcommand*{\P}{\mathbb P} % for primes or probability, overwrites shorthand for \textparagraph
 \newcommand*{\N}{\mathbb N}
