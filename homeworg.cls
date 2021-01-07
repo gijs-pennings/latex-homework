@@ -3,14 +3,16 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2020/12/27 Gijs's homework template]
+\ProvidesClass{homeworg}[2021/01/07 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
+\newif\if@localeqs \@localeqstrue
 \newif\if@narrowmargins \@narrowmarginstrue
 \newif\if@officialeuro
 
 \DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
+\DeclareOption{globaleqs}{\@localeqsfalse}
 \DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -114,10 +116,9 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
-\newtagform{brackets}{[}{]}
-\usetagform{brackets}
-
-\counterwithin{equation}{section} % resets equation counter for each section
+\if@localeqs
+    \counterwithin{equation}{section} % resets equation counter for each section
+\fi
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
 \newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
@@ -170,7 +171,7 @@
 \renewcommand*{\vcentcolon}{\!:\!} % dirty fix: both vertical and horizontal spacing is off
 \DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
 \DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
-\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (black sheep)
+\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (missing in Libertinus?)
 \DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
 
 % see 3.6 of http://mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
