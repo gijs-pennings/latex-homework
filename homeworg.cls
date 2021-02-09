@@ -7,12 +7,12 @@
 
 % default = false
 \newif\if@altquants
-\newif\if@localeqs \@localeqstrue
+\newif\if@globalnums \@globalnumstrue
 \newif\if@narrowmargins \@narrowmarginstrue
 \newif\if@officialeuro
 
 \DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
-\DeclareOption{globaleqs}{\@localeqsfalse}
+\DeclareOption{globalnums}{\@globalnumsfalse}
 \DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -111,9 +111,9 @@
 
 % https://tex.stackexchange.com/a/49326
 % Far from perfect: does not alter left side ('w' needs it) which makes it worse
-% for most lower case, too short for some ('A'), too long for others ('U')
+% for most lower case, too short for some ('A'), and too long for others ('U').
 % TODO: add similar command for overline?
-\newcommand{\varunderline}[2][1]{\underline{#2\mkern-#1mu}\mkern#1mu}
+\newcommand*{\varunderline}[2][1]{\underline{#2\mkern-#1mu}\mkern#1mu}
 
 \renewcommand*{\P}{\mathbb P} % for primes or probability, overwrites shorthand for \textparagraph
 \newcommand*{\N}{\mathbb N}
@@ -122,7 +122,7 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
-\if@localeqs
+\if@globalnums
     \counterwithin{equation}{section} % resets equation counter for each section
 \fi
 
@@ -160,8 +160,8 @@
 \DeclareFontSubstitution{LS1}{stix2}{m}{n}
 
 \DeclareSymbolFont{stix2-symbols3}{LS1}{stix2bb}{m}{n}
-\DeclareMathSymbol{\@one}{\mathord}{stix2-symbols3}{"31}
-\def\1{\scalerel*{\@one}{1}}
+\DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
+\def\bbone{\scalerel*{\@bbone}{1}}
 
 % after amssymb is loaded, since it defines \nexists
 \if@altquants
