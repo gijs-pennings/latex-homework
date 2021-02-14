@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2021/01/07 Gijs's homework template]
+\ProvidesClass{homeworg}[2021/02/14 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -15,21 +15,25 @@
 \DeclareOption{globalnums}{\@globalnumsfalse}
 \DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
 \LoadClass[12pt, a4paper]{article}
 
-% load before fontenc: https://tex.stackexchange.com/a/2869
-\RequirePackage[serif]{libertinus-type1}
-\RequirePackage[lcgreekalpha]{libertinust1math} % lcgreekalpha enables e.g. \mathbf for lower case Greek letters
-
-% extrasp=0pt  disables extra space after sentence-ending period
-% mono         disables space stretching and shrinking
-% scale=.94    scales size to roughly match Libertinus's x-height
-% varqu        replaces slanted by upright quotes (for code)
+% extrasp=0pt   disables extra space after sentence-ending period
+% mono          disables space stretching and shrinking
+% scale=.94     scales size to roughly match Libertinus's x-height
+% varqu         replaces slanted by upright quotes (for code)
 \RequirePackage[extrasp=0pt, mono, scale=.94, varqu]{inconsolata}
 
+% mono=false   disables Libertinus Mono (which would replace Inconsolata)
+\RequirePackage[mono=false]{libertinus-type1}
+
+% lcgreekalpha  enables e.g. \mathbf for lower case Greek letters
+\RequirePackage[lcgreekalpha]{libertinust1math}
+
+% load fonts before fontenc: https://tex.stackexchange.com/a/2869
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 
