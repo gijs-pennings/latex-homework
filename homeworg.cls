@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2021/02/14 Gijs's homework template]
+\ProvidesClass{homeworg}[2021/02/15 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -39,6 +39,15 @@
 
 % load early: https://tex.stackexchange.com/a/151864
 \RequirePackage[american]{babel}
+
+% Typesets the title etc. in Libertinus Display. These declarations were copied
+% from ltsect.dtx and modified. Since hyperref also redefines them (to make the
+% pdfusetitle option work, among others), we do it before hyperref is loaded.
+% TODO: could be applied to sections as well
+\DeclareRobustCommand\title[1]{\gdef\@title{\LibertinusDisplay#1}}
+\DeclareRobustCommand*\author[1]{\gdef\@author{\LibertinusDisplay#1}}
+\DeclareRobustCommand*\date[1]{\gdef\@date{\LibertinusDisplay#1}}
+\date\today % reinitializes \date with default value, so correct font is used
 
 \RequirePackage{aliascnt}
 \RequirePackage{amsmath, amssymb, amsthm}
@@ -154,7 +163,7 @@
 \theoremstyle{hw-definition}
 \NewTheorem{definition}
 
-% from libertinust1math.sty
+% libertinust1math.sty
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % defines * as \cdot (use \ast for asterisk symbol)
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22} % swaps definition of \epsilon ..
 \DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F} % .. and \varepsilon
@@ -177,14 +186,14 @@
     \DeclareMathSymbol{\nexists}{\mathord}{operators}{"C8}
 \fi
 
-% fixes inconsistencies with libertinust1math, use mathtools's conventions
+% fixes inconsistencies with libertinust1math (mathtools's conventions are used)
 \renewcommand*{\vcentcolon}{\!:\!} % dirty fix: both vertical and horizontal spacing is off
 \DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
 \DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
 \renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (missing in Libertinus?)
 \DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
 
-% see 3.6 of http://mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
+% 3.6 of http://mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
 % \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
 % TODO: \delimsize vs \middle? add \allowbreak? \mathopen, \mathclose correct?
 \newcommand*{\@renewmid}{\renewcommand*{\mid}{%
