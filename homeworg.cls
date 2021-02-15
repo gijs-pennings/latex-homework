@@ -65,7 +65,7 @@
 \fi
 
 % load last
-\RequirePackage[pdfusetitle]{hyperref} % also see 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
+\RequirePackage[pdfusetitle]{hyperref} % 5.1 of http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
 \if@narrowmargins
     \RequirePackage[margin=1in]{geometry} % after hyperref, per manual
 \fi
@@ -103,16 +103,14 @@
     \ifnum\thesection>0\newpage\fi%
     \@exercise%
 }}
-\newcommand*{\@exercise}[1][-1]{%
+\newcommand*{\@exercise}[1][\@nil]{% https://tex.stackexchange.com/a/217763
     \setcounter{secnumdepth}{0}% disables numbering, keeps bookmark: https://tex.stackexchange.com/a/384985
-    \stepcounter{section}% increases section counter manually, since ^
-    \begingroup\edef\x{\endgroup% expands \thesection for \nameref: https://tex.stackexchange.com/a/569405
-        \noexpand\section[\exercisename{} \thesection]{%
-            \exercisename~\thesection%
-            \ifnum#1>-1\enskip(#1 pt\ifnum#1=1\else s\fi)\fi%
-        }%
-    }\x%
-    \addtocounter{section}{-1}\refstepcounter{exercise}% associates correct name with label: https://tex.stackexchange.com/a/171436
+    \def\@arg{#1}%
+    \def\@num{\ifx\@arg\@nnil\the\numexpr\theexercise+1\relax\else#1\fi}%
+    \begingroup\edef\@tmp{\endgroup% expands \@num for \nameref: https://tex.stackexchange.com/a/569405
+        \noexpand\section{\exercisename{} \@num}%
+    }\@tmp%
+    \refstepcounter{exercise}% associates correct name with label for \autoref
     \setcounter{secnumdepth}{3}%
 }
 
@@ -153,7 +151,7 @@
     \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}%
     \newaliascnt{#1}{equation}%
     \newtheorem{#1}[#1]{\MakeUppercase#1}%
-    \aliascntresetthe{#1}% see 1.2 of http://mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
+    \aliascntresetthe{#1}% 1.2 of http://mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
 \theoremstyle{hw-plain}
