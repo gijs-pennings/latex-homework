@@ -7,12 +7,12 @@
 
 % default = false
 \newif\if@altquants
-\newif\if@globalnums \@globalnumstrue
+\newif\if@localnums \@localnumstrue
 \newif\if@narrowmargins \@narrowmarginstrue
 \newif\if@officialeuro
 
 \DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
-\DeclareOption{globalnums}{\@globalnumsfalse}
+\DeclareOption{globalnums}{\@localnumsfalse}
 \DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 
@@ -135,7 +135,7 @@
 \newcommand*{\R}{\mathbb R}
 \newcommand*{\C}{\mathbb C}
 
-\if@globalnums
+\if@localnums
     \counterwithin{equation}{section} % resets equation counter for each section
 \fi
 
