@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2021/02/15 Gijs's homework template]
+\ProvidesClass{homeworg}[2021/02/16 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -11,7 +11,7 @@
 \newif\if@narrowmargins \@narrowmarginstrue
 \newif\if@officialeuro
 
-\DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 is not fixed
+\DeclareOption{altquants}{\@altquantstrue} % while https://github.com/alerque/libertinus/issues/346 remains open
 \DeclareOption{globalnums}{\@localnumsfalse}
 \DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
@@ -95,24 +95,34 @@
     \popQED\endtrivlist\@endpefalse%
 }
 
+\let\exercisemark\sectionmark            % TODO: necessary?
+\let\l@exercise\l@section                % for TOC?
+\let\toclevel@exercise\toclevel@section  % for PDF bookmarks?
 \providecommand{\exercisename}{Exercise}
 \newaliascnt{exercise}{section}
+\newcommand*{\@exercisesection}{% copied from article.cls and modified
+    \@startsection%
+        {exercise}{1}{\z@}%
+        {-3.5ex \@plus -1ex \@minus -.2ex}%
+        {2.3ex \@plus.2ex}%
+        {\normalfont\Large\bfseries}%
+}
+\newcommand*{\@exercise}[1][\@nil]{% https://tex.stackexchange.com/a/217763
+    \refstepcounter{exercise}% associates correct name with label for \autoref
+    \setcounter{secnumdepth}{0}% disables numbering, keeps bookmark: https://tex.stackexchange.com/a/384985
+    \def\@arg{#1}%
+    \def\@num{\ifx\@arg\@nnil\theexercise\else#1\fi}%
+    \begingroup\edef\x{\endgroup% expands \@num for \nameref: https://tex.stackexchange.com/a/569405
+        \noexpand\@exercisesection{\exercisename{} \@num}%
+    }\x%
+    \setcounter{secnumdepth}{3}%
+}
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
 }{%
-    \ifnum\thesection>0\newpage\fi%
+    \ifnum\theexercise>0\newpage\fi%
     \@exercise%
 }}
-\newcommand*{\@exercise}[1][\@nil]{% https://tex.stackexchange.com/a/217763
-    \setcounter{secnumdepth}{0}% disables numbering, keeps bookmark: https://tex.stackexchange.com/a/384985
-    \def\@arg{#1}%
-    \def\@num{\ifx\@arg\@nnil\the\numexpr\theexercise+1\relax\else#1\fi}%
-    \begingroup\edef\@tmp{\endgroup% expands \@num for \nameref: https://tex.stackexchange.com/a/569405
-        \noexpand\section{\exercisename{} \@num}%
-    }\@tmp%
-    \refstepcounter{exercise}% associates correct name with label for \autoref
-    \setcounter{secnumdepth}{3}%
-}
 
 \newcommand*{\homeworgauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
     G.\,P\kern-.075em.\,S.~Pennings%
