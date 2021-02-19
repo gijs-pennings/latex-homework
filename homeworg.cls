@@ -70,6 +70,13 @@
     \RequirePackage[margin=1in]{geometry} % after hyperref, per manual
 \fi
 
+\addto\extrasamerican{
+    \let\subsectionautorefname\sectionautorefname
+    \let\subsubsectionautorefname\sectionautorefname
+    \let\paragraphautorefname\sectionautorefname
+    \let\subparagraphautorefname\sectionautorefname
+}
+
 \hypersetup{pdfcreator={LaTeX with homeworg}}
 
 % \left and \right introduce extra space around the delimiters. To remove this,
