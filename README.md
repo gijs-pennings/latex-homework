@@ -1,4 +1,4 @@
-# homeworg.cls
+# homework.cls
 
 A template for homework assignments, especially suitable for mathematics and computer science. Using a different font, your homework assignments have a distinct look. The class provides many useful macros, making it easy to produce beautifully typeset documents.
 

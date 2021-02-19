@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2021/02/19 Gijs's homework template]
+\ProvidesClass{homework}[2021/02/19 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -77,7 +77,7 @@
     \let\subparagraphautorefname\sectionautorefname
 }
 
-\hypersetup{pdfcreator={LaTeX with homeworg}}
+\hypersetup{pdfcreator={LaTeX with homework}}
 
 % \left and \right introduce extra space around the delimiters. To remove this,
 % we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
@@ -140,7 +140,7 @@
     \@exercise%
 }}
 
-\newcommand*{\homeworgauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
+\newcommand*{\homeworkauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
     G.\,P\kern-.075em.\,S.~Pennings%
 }{%
     G.P.S. Pennings%
