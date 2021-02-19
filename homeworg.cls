@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homeworg}[2021/02/16 Gijs's homework template]
+\ProvidesClass{homeworg}[2021/02/19 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -95,11 +95,21 @@
     \popQED\endtrivlist\@endpefalse%
 }
 
-\let\exercisemark\sectionmark            % TODO: necessary?
-\let\l@exercise\l@section                % for TOC?
-\let\toclevel@exercise\toclevel@section  % for PDF bookmarks?
+\newaliascnt{exercise}{section} % so \autoref associates correct name with label
 \providecommand{\exercisename}{Exercise}
-\newaliascnt{exercise}{section}
+
+\let\exercisemark\@gobble
+\let\toclevel@exercise\toclevel@section % for PDF bookmarks
+
+% disables numbering for exercises, for both actual headers and in TOC
+\def\l@exercise#1#2{\begingroup\let\numberline\@gobble\l@section{#1}{#2}\endgroup} % https://tex.stackexchange.com/a/62117
+\def\@nonumsexercise{}
+\def\@seccntformat#1{% http://www.texfaq.org/FAQ-seccntfmt
+    \ifcsname @nonums#1\endcsname\else%
+        \csname the#1\endcsname\quad% default behavior for other section types, from ltsect.dtx
+    \fi%
+}
+
 \newcommand*{\@exercisesection}{% copied from article.cls and modified
     \@startsection%
         {exercise}{1}{\z@}%
@@ -108,14 +118,13 @@
         {\normalfont\Large\bfseries}%
 }
 \newcommand*{\@exercise}[1][\@nil]{% https://tex.stackexchange.com/a/217763
-    \refstepcounter{exercise}% associates correct name with label for \autoref
-    \setcounter{secnumdepth}{0}% disables numbering, keeps bookmark: https://tex.stackexchange.com/a/384985
     \def\@arg{#1}%
-    \def\@num{\ifx\@arg\@nnil\theexercise\else#1\fi}%
-    \begingroup\edef\x{\endgroup% expands \@num for \nameref: https://tex.stackexchange.com/a/569405
-        \noexpand\@exercisesection{\exercisename{} \@num}%
+    \begingroup\edef\x{\endgroup% expands exercise counter for \nameref: https://tex.stackexchange.com/a/569405
+        \noexpand\@exercisesection{%
+            \exercisename{} % note: space
+            \ifx\@arg\@nnil\the\numexpr\value{exercise}+1\else#1\fi%
+        }%
     }\x%
-    \setcounter{secnumdepth}{3}%
 }
 \newcommand*{\exercise}{\@ifstar{%
     \@exercise%
