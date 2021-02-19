@@ -146,12 +146,6 @@
     G.P.S. Pennings%
 }}
 
-% https://tex.stackexchange.com/a/49326
-% Far from perfect: does not alter left side ('w' needs it) which makes it worse
-% for most lower case, too short for some ('A'), and too long for others ('U').
-% TODO: add similar command for overline?
-\newcommand*{\varunderline}[2][1]{\underline{#2\mkern-#1mu}\mkern#1mu}
-
 \renewcommand*{\P}{\mathbb P} % for primes or probability, overwrites shorthand for \textparagraph
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
