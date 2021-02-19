@@ -8,21 +8,38 @@
 \maketitle
 
 \exercise
-The exercises are automatically numbered, starting from one. Packages such as \texttt{amsmath} and \texttt{hyperref} are included by default.
+Exercises are automatically numbered, starting from one. Essential packages such as \texttt{amsmath} and \texttt{hyperref} are included by default.
 
-Paragraphs are not indented, but are instead separated by some vertical space.
-
-As an example: the \emph{standard inner product} on $\R^n$ is defined as
-\[\vec a * \vec b \coloneqq a_1 b_1 + \dots + a_n b_n\qquad\text{for }\vec a,\vec b \in \R^n.\]
-Note that \texttt{*} can be used instead of \verb|\cdot|, and \verb|\R| instead of \verb|\mathbb{R}|. (For a normal asterisk, use \verb|\ast|.) Of course, there are also macros for the natural numbers etc. Commands such as \verb|\abs{}| and \verb|\set{}| can be used to create (scaled) delimiters. For example,
-\[\abs{\frac{1}{1 - \lambda h}} \le 1\qquad\text{and}\qquad\set{x \in \R \mid 1 < \sqrt{x^3 + 2} < \frac{3}{2}}.\]
-The starred version of these commands disables the auto-scaling.
+Instead of being indented, paragraphs are separated by some white space.
 
 \exercise*
-Each exercise (except the first) starts on a new page. You can disable this behavior using the starred version of the command.
+Each exercise (except the first) starts on a new page. You can disable this behavior using the starred version of the command: \verb|\exercise*|.
 
-\exercise[10]
-Optionally, you can specify the number of points for an exercise.
+Now, let's consider a mathematical example.
+
+\begin{definition}
+    The \emph{standard inner product} of two vectors $\vec x, \vec y \in \R^n$ is defined as
+    \[
+        \vec x * \vec y \coloneqq x_1 y_1 + \dots + x_n y_n.
+    \]
+\end{definition}
+
+Next to definitions, environments for theorems and lemmas are included as well. Furthermore, you can easily define your own with the \verb|\NewTheorem| command.
+
+Note that \texttt{*} can be used instead of \verb|\cdot|, and \verb|\R| instead of \verb|\mathbb{R}|. (For a normal asterisk, use \verb|\ast|.) Of course, there are also macros for the natural numbers etc. Commands such as \verb|\abs{}| and \verb|\set{}| can be used to create (scaled) delimiters. For example,
+\[
+    \abs{\frac{1}{1 - \lambda h}} \le 1
+    \qquad\text{and}\qquad
+    \bigcup_{i=1}^n \; \set{z \in \C \mid \abs*{z - a_{ii}} \le {\sum\nolimits_{i \ne j}} \abs*{a_{ij}}}.
+\]
+The starred version of these commands disables the auto-scaling.
+
+\exercise[Rec--2.1]
+Optionally, you can fully customize the numbering of each exercise \dots
+
+\setcounter{exercise}{7}
+\exercise*
+\dots{} or skip a few, using the \verb|\setcounter{exercise}{x}| command.
 
 For more information, refer to \url{https://github.com/gijs-pennings/latex-homework}.
 
