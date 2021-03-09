@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/02/19 Gijs's homework template]
+\ProvidesClass{homework}[2021/03/09 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -50,7 +50,8 @@
 \date\today % reinitializes \date with default value, so correct font is used
 
 \RequirePackage{aliascnt}
-\RequirePackage{amsmath, amssymb, amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
 \RequirePackage{mleftright}
@@ -77,7 +78,7 @@
     \let\subparagraphautorefname\sectionautorefname
 }
 
-\hypersetup{pdfcreator={LaTeX with homework}}
+\hypersetup{pdfcreator={LaTeX with homework.cls}}
 
 % \left and \right introduce extra space around the delimiters. To remove this,
 % we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
@@ -146,7 +147,6 @@
     G.P.S. Pennings%
 }}
 
-\renewcommand*{\P}{\mathbb P} % for primes or probability, overwrites shorthand for \textparagraph
 \newcommand*{\N}{\mathbb N}
 \newcommand*{\Z}{\mathbb Z}
 \newcommand*{\Q}{\mathbb Q}
@@ -194,14 +194,11 @@
 \DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
 \def\bbone{\scalerel*{\@bbone}{1}}
 
-% after amssymb is loaded, since it defines \nexists
 \if@altquants
     \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n}
     \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
     \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
     \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8}
-\else
-    \DeclareMathSymbol{\nexists}{\mathord}{operators}{"C8}
 \fi
 
 % fixes inconsistencies with libertinust1math (mathtools's conventions are used)
