@@ -1,9 +1,9 @@
-% Copyright (c) 2020, Gijs Pennings. Licensed under the ISC license.
+% Copyright (c) 2020-2021, Gijs Pennings. Licensed under the ISC license.
 % For the full license, documentation, and the latest version, visit
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/03/09 Gijs's homework template]
+\ProvidesClass{homework}[2021/05/03 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -140,6 +140,9 @@
     \ifnum\theexercise>0\newpage\fi%
     \@exercise%
 }}
+
+% https://tex.stackexchange.com/a/42728
+\newcommand*{\numberthis}{\stepcounter{equation}\tag{\theequation}\label}
 
 \newcommand*{\homeworkauthor}{\texorpdfstring{% https://tex.stackexchange.com/a/10557
     G.\,P\kern-.075em.\,S.~Pennings%
