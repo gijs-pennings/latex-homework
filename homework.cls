@@ -3,7 +3,7 @@
 % https://github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/05/03 Gijs's homework template]
+\ProvidesClass{homework}[2021/07/03 Gijs's homework template]
 
 % default = false
 \newif\if@altquants
@@ -57,6 +57,7 @@
 \RequirePackage{mleftright}
 \RequirePackage{parskip}
 \RequirePackage{scalerel}
+\RequirePackage{xurl}
 
 \if@officialeuro
     \RequirePackage[left]{eurosym}
