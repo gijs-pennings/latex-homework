@@ -3,7 +3,10 @@
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/07/03 Gijs's homework template]
+\ProvidesClass{homework}[2021/08/01 Gijs's homework template]
+
+
+% --------[ OPTIONS ]-----------------------------------------------------------
 
 % default = false
 \newif\if@altquants
@@ -19,7 +22,10 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
-\LoadClass[12pt, a4paper]{article}
+\LoadClass[12pt]{article}
+
+
+% --------[ PACKAGES: FONTS ]---------------------------------------------------
 
 % extrasp=0pt   disables extra space after sentence-ending period
 % mono          disables space stretching and shrinking
@@ -33,12 +39,15 @@
 % lcgreekalpha  enables e.g. \mathbf for lower case Greek letters
 \RequirePackage[lcgreekalpha]{libertinust1math}
 
+% (using tex.stackexchange.com/a/254626 and fonttable package)
+\DeclareFontEncoding{LS1}{}{}
+\DeclareFontSubstitution{LS1}{stix2}{m}{n}
+\DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n}
+\DeclareSymbolFont{stix2-symbols3}{LS1}{stix2bb}{m}{n}
+
 % load fonts before fontenc: tex.stackexchange.com/a/2869
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
-
-% load early: tex.stackexchange.com/a/151864
-\RequirePackage[american]{babel}
 
 % Typesets the title etc. in Libertinus Display. These declarations were copied
 % from ltsect.dtx and modified. Since hyperref also redefines them (to make the
@@ -49,28 +58,11 @@
 \DeclareRobustCommand*\date[1]{\gdef\@date{\LibertinusDisplay#1}}
 \date\today % reinitializes \date with default value, so correct font is used
 
-\RequirePackage{aliascnt}
-\RequirePackage{amsmath}
-\RequirePackage{amsthm}
-\RequirePackage{mathtools}
-\RequirePackage{microtype}
-\RequirePackage{mleftright}
-\RequirePackage{parskip}
-\RequirePackage{scalerel}
-\RequirePackage{xurl}
 
-\if@officialeuro
-    \RequirePackage[left]{eurosym}
-    \let\@euro\euro
-    \def\euro{\scalerel*{$\@euro$}{C}}
-    \DeclareUnicodeCharacter{20AC}{\euro}
-\fi
+% --------[ PACKAGES: LANGUAGE ]------------------------------------------------
 
-% load last
-\RequirePackage[pdfusetitle]{hyperref} % 5.1 of mirrors.ctan.org/macros/latex/contrib/hyperref/doc/paper.pdf
-\if@narrowmargins
-    \RequirePackage[margin=1in]{geometry} % after hyperref, per manual
-\fi
+% load early: tex.stackexchange.com/a/151864
+\RequirePackage[american]{babel}
 
 \addto\extrasamerican{
     \let\subsectionautorefname\sectionautorefname
@@ -79,7 +71,13 @@
     \let\subparagraphautorefname\sectionautorefname
 }
 
-\hypersetup{pdfcreator={LaTeX with homework.cls}}
+
+% --------[ PACKAGES: MATH ]----------------------------------------------------
+
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{mleftright}
 
 % \left and \right introduce extra space around the delimiters. To remove this,
 % we need to insert opening (\mathopen) and closing (\mathclose) atoms. The
@@ -88,8 +86,46 @@
 % tex.stackexchange.com/a/2610
 \mleftright
 
+
+% --------[ PACKAGES: OTHER ]---------------------------------------------------
+
+\RequirePackage{aliascnt}           % to fix autoref labels for shared counters
+\RequirePackage{scalerel}           % to scale characters
+
+\RequirePackage[a4paper]{geometry}  % to set margins etc.
+\RequirePackage{microtype}          % improves typography
+\RequirePackage[parfill]{parskip}   % separates paragraphs by white space
+\RequirePackage{xurl}               % allows URLs to break (almost) anywhere
+
+\if@officialeuro
+    \RequirePackage[left]{eurosym}
+    \let\@euro\euro
+    \def\euro{\scalerel*{$\@euro$}{C}}
+    \DeclareUnicodeCharacter{20AC}{\euro}
+\fi
+
+\if@narrowmargins
+    \geometry{margin=1in}
+\fi
+
+
+% --------[ PACKAGES: HYPERREF ]------------------------------------------------
+
+% load last: tex.stackexchange.com/q/1863
+\RequirePackage[pdfcreator={LaTeX with homework.cls}, pdfusetitle]{hyperref}
+
 % removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
+
+
+% --------[ PATCHES ]-----------------------------------------------------------
+
+% fixes inconsistencies with libertinust1math (mathtools's conventions are used)
+\renewcommand*{\vcentcolon}{\!:\!}                                      % both vertical and horizontal spacing is off!
+\DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
+\DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
+\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (missing in Libertinus)
+\DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
 
 % Without this patch, there is too much vertical spacing above and below the
 % proof environment. I've found no other environments that suffer from this,
@@ -103,6 +139,29 @@
 }{%
     \popQED\endtrivlist\@endpefalse%
 }
+
+
+% --------[ CHARACTERS ]--------------------------------------------------------
+
+% defines * as \cdot (use \ast for asterisk symbol)
+\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C}
+
+% swaps definition of \epsilon and \varepsilon
+\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22}
+\DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F}
+
+% imports blackboard 1 from stix2 (missing in Libertinus)
+\DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
+\def\bbone{\scalerel*{\@bbone}{1}}
+
+\if@altquants
+    \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
+    \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
+    \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8}
+\fi
+
+
+% --------[ EXERCISES ]---------------------------------------------------------
 
 \newaliascnt{exercise}{section} % so \autoref associates correct name with label
 \providecommand{\exercisename}{Exercise}
@@ -142,24 +201,12 @@
     \@exercise%
 }}
 
-% tex.stackexchange.com/a/42728
-\newcommand*{\numberthis}{\stepcounter{equation}\tag{\theequation}\label}
-
-\newcommand*{\homeworkauthor}{\texorpdfstring{% tex.stackexchange.com/a/10557
-    G.\,P\kern-.075em.\,S.~Pennings%
-}{%
-    G.P.S. Pennings%
-}}
-
-\newcommand*{\N}{\mathbb N}
-\newcommand*{\Z}{\mathbb Z}
-\newcommand*{\Q}{\mathbb Q}
-\newcommand*{\R}{\mathbb R}
-\newcommand*{\C}{\mathbb C}
-
 \if@localnums
-    \counterwithin{equation}{section} % resets equation counter for each section
+    \counterwithin{equation}{section} % resets equation counter for each section/exercise
 \fi
+
+
+% --------[ THEOREMS ]----------------------------------------------------------
 
 \newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
 \newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
@@ -185,32 +232,8 @@
 \theoremstyle{hw-definition}
 \NewTheorem{definition}
 
-% libertinust1math.sty
-\DeclareMathSymbol{*}{\mathbin}{symbols}{"0C} % defines * as \cdot (use \ast for asterisk symbol)
-\DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22} % swaps definition of \epsilon ..
-\DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F} % .. and \varepsilon
 
-% tex.stackexchange.com/a/254626 and fonttable package
-\DeclareFontEncoding{LS1}{}{}
-\DeclareFontSubstitution{LS1}{stix2}{m}{n}
-
-\DeclareSymbolFont{stix2-symbols3}{LS1}{stix2bb}{m}{n}
-\DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
-\def\bbone{\scalerel*{\@bbone}{1}}
-
-\if@altquants
-    \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n}
-    \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
-    \DeclareMathSymbol{\exists} {\mathord}{stix2-operators}{"C7}
-    \DeclareMathSymbol{\nexists}{\mathord}{stix2-operators}{"C8}
-\fi
-
-% fixes inconsistencies with libertinust1math (mathtools's conventions are used)
-\renewcommand*{\vcentcolon}{\!:\!} % dirty fix: both vertical and horizontal spacing is off
-\DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
-\DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
-\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (missing in Libertinus?)
-\DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
+% --------[ MACROS: DELIMITERS ]------------------------------------------------
 
 % 3.6 of mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
 % \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
@@ -247,3 +270,21 @@
 \def\norm{\@ifstar{\@norm}{\@norm*}}
 \def\set{\@ifstar{\@set}{\@set*}}
 \def\Set{\@ifstar{\@Set}{\@Set*}}
+
+
+% --------[ MACROS: OTHER ]-----------------------------------------------------
+
+\newcommand*{\homeworkauthor}{\texorpdfstring{% tex.stackexchange.com/a/10557
+    G.\,P\kern-.075em.\,S.~Pennings%
+}{%
+    G.P.S. Pennings%
+}}
+
+% tex.stackexchange.com/a/42728
+\newcommand*{\numberthis}{\stepcounter{equation}\tag{\theequation}\label}
+
+\newcommand*{\N}{\mathbb N}
+\newcommand*{\Z}{\mathbb Z}
+\newcommand*{\Q}{\mathbb Q}
+\newcommand*{\R}{\mathbb R}
+\newcommand*{\C}{\mathbb C}
