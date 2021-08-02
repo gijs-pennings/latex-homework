@@ -3,7 +3,7 @@
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/08/01 Gijs's homework template]
+\ProvidesClass{homework}[2021/08/05 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -112,10 +112,15 @@
 % --------[ PACKAGES: HYPERREF ]------------------------------------------------
 
 % load last: tex.stackexchange.com/q/1863
+% .. and even later: mirrors.ctan.org/macros/latex/contrib/hyperref/doc/hyperref-doc.html#x1-540009
 \RequirePackage[pdfcreator={LaTeX with homework.cls}, pdfusetitle]{hyperref}
+\RequirePackage{ellipsis}           % fixes space after \textellipsis
 
 % removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
+
+% customizes space between dots to recreate Libertinus's ellipsis
+\renewcommand{\ellipsisgap}{.045em}
 
 
 % --------[ PATCHES ]-----------------------------------------------------------
