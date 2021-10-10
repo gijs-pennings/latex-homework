@@ -3,7 +3,7 @@
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/08/05 Gijs's homework template]
+\ProvidesClass{homework}[2021/10/10 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -155,7 +155,7 @@
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22}
 \DeclareMathSymbol{\varepsilon}{\libus@lcgc}{operators}{"0F}
 
-% imports blackboard 1 from stix2 (missing in Libertinus)
+% imports blackboard 1 from STIX (missing in Libertinus)
 \DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
 \def\bbone{\scalerel*{\@bbone}{1}}
 
@@ -223,11 +223,12 @@
 % counter, and we define the right string for it (e.g. \lemmaautorefname).
 % tex.stackexchange.com/a/113540
 % TODO: add \expandafter to \MakeUppercase?
-\newcommand*{\NewTheorem}[1]{%
-    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}%
-    \newaliascnt{#1}{equation}%
-    \newtheorem{#1}[#1]{\MakeUppercase#1}%
-    \aliascntresetthe{#1}% 1.2 of mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
+\newcommand*{\NewTheorem}[1]{
+    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
+    \newaliascnt{#1}{equation}
+    \newtheorem{#1}[#1]{\MakeUppercase#1}
+    \newtheorem*{#1*}{\MakeUppercase#1}
+    \aliascntresetthe{#1} % 1.2 of mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
 \theoremstyle{hw-plain}
