@@ -232,7 +232,9 @@
 }
 
 \theoremstyle{hw-plain}
+\NewTheorem{corollary}
 \NewTheorem{lemma}
+\NewTheorem{proposition}
 \NewTheorem{theorem}
 
 \theoremstyle{hw-definition}
