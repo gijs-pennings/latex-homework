@@ -89,10 +89,9 @@
 
 % --------[ PACKAGES: OTHER ]---------------------------------------------------
 
-\RequirePackage{aliascnt}           % to fix autoref labels for shared counters
-\RequirePackage{scalerel}           % to scale characters
-
 \RequirePackage[a4paper]{geometry}  % to set margins etc.
+\RequirePackage{aliascnt}           % to fix autoref labels for shared counters
+\RequirePackage{graphicx}           % to add images and scale text
 \RequirePackage{microtype}          % improves typography
 \RequirePackage[parfill]{parskip}   % separates paragraphs by white space
 \RequirePackage{xurl}               % allows URLs to break (almost) anywhere
@@ -100,7 +99,7 @@
 \if@officialeuro
     \RequirePackage[left]{eurosym}
     \let\@euro\euro
-    \def\euro{\scalerel*{$\@euro$}{C}}
+    \def\euro{\raisebox{.0027em}{\scalebox{.87}{\@euro}}}
     \DeclareUnicodeCharacter{20AC}{\euro}
 \fi
 
@@ -157,7 +156,7 @@
 
 % imports blackboard 1 from STIX (missing in Libertinus)
 \DeclareMathSymbol{\@bbone}{\mathord}{stix2-symbols3}{"31}
-\def\bbone{\scalerel*{\@bbone}{1}}
+\def\bbone{\scalebox{.93}{$\@bbone$}}
 
 \if@altquants
     \DeclareMathSymbol{\forall} {\mathord}{stix2-operators}{"C5}
