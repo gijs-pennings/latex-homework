@@ -255,21 +255,13 @@
 }}
 
 % tex.stackexchange.com/a/43009
-\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
-\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
-\DeclarePairedDelimiter{\inner}{\langle}{\rangle} % bad name
-\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
-\DeclarePairedDelimiterX{\set}[1]{\{}{\}}{\@renewmid#1}
-\DeclarePairedDelimiterX{\Set}[1]{\{}{\}}{\@renewmid\nonscript\,#1\nonscript\,} % \nonscript suppresses \, in (script)script style
-
-\let\@abs\abs
-\let\@ceil\ceil
-\let\@floor\floor
-\let\@inner\inner
-\let\@norm\norm
-\let\@set\set
-\let\@Set\Set
+\DeclarePairedDelimiter{\@abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\@ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\@floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\@inner}{\langle}{\rangle} % bad name
+\DeclarePairedDelimiter{\@norm}{\lVert}{\rVert}
+\DeclarePairedDelimiterX{\@set}[1]{\{}{\}}{\@renewmid#1}
+\DeclarePairedDelimiterX{\@Set}[1]{\{}{\}}{\@renewmid\nonscript\,#1\nonscript\,} % \nonscript suppresses \, in (script)script style
 
 \def\abs{\@ifstar{\@abs}{\@abs*}}
 \def\ceil{\@ifstar{\@ceil}{\@ceil*}}
