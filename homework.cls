@@ -27,17 +27,19 @@
 
 % --------[ PACKAGES: FONTS ]---------------------------------------------------
 
-% extrasp=0pt   disables extra space after sentence-ending period
-% mono          disables space stretching and shrinking
-% scale=.94     scales size to roughly match Libertinus's x-height
-% varqu         replaces slanted by upright quotes (for code)
+% extrasp=0pt          disables extra space after sentence-ending period
+% mono                 disables space stretching and shrinking
+% scale=.94            scales size to roughly match Libertinus's x-height
+% varqu                replaces slanted by upright quotes (for code)
 \RequirePackage[extrasp=0pt, mono, scale=.94, varqu]{inconsolata}
 
-% mono=false   disables Libertinus Mono (which would replace Inconsolata)
+% mono=false           disables Libertinus Mono (would replace Inconsolata)
 \RequirePackage[mono=false]{libertinus-type1}
 
-% lcgreekalpha  enables e.g. \mathbf for lower case Greek letters
-\RequirePackage[lcgreekalpha]{libertinust1math}
+% amsthm               loads amsthm package (in addition to amsmath)
+% lcgreekalpha         enables e.g. \mathbf for lower case Greek letters
+% subscriptcorrection  improves kerning of 'j' and others in subscripts
+\RequirePackage[amsthm, lcgreekalpha, subscriptcorrection]{libertinust1math}
 
 % (using tex.stackexchange.com/a/254626 and fonttable package)
 \DeclareFontEncoding{LS1}{}{}
@@ -67,8 +69,6 @@
 
 % --------[ PACKAGES: MATH ]----------------------------------------------------
 
-\RequirePackage{amsmath}
-\RequirePackage{amsthm}
 \RequirePackage{mathtools}
 \RequirePackage{mleftright}
 
