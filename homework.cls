@@ -1,9 +1,9 @@
-% Copyright (c) 2020-2021, Gijs Pennings. Licensed under the ISC license.
+% Copyright (c) 2022, Gijs Pennings. Licensed under the ISC license.
 % For the full license, documentation, and the latest version, visit
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2021/10/10 Gijs's homework template]
+\ProvidesClass{homework}[2022/01/30 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -64,13 +64,6 @@
 % load early: tex.stackexchange.com/a/151864
 \RequirePackage[american]{babel}
 
-\addto\extrasamerican{
-    \let\subsectionautorefname\sectionautorefname
-    \let\subsubsectionautorefname\sectionautorefname
-    \let\paragraphautorefname\sectionautorefname
-    \let\subparagraphautorefname\sectionautorefname
-}
-
 
 % --------[ PACKAGES: MATH ]----------------------------------------------------
 
@@ -114,6 +107,14 @@
 % .. and even later: mirrors.ctan.org/macros/latex/contrib/hyperref/doc/hyperref-doc.html#x1-540009
 \RequirePackage[pdfcreator={LaTeX with homework.cls}, pdfusetitle]{hyperref}
 \RequirePackage{ellipsis}           % fixes space after \textellipsis
+
+% renames subsection labels (etc.) to 'section' for \autoref
+\addto\extrasamerican{
+    \let\subsectionautorefname\sectionautorefname
+    \let\subsubsectionautorefname\sectionautorefname
+    \let\paragraphautorefname\sectionautorefname
+    \let\subparagraphautorefname\sectionautorefname
+}
 
 % removes \, from all text when used for pdf fields (e.g. author)
 \pdfstringdefDisableCommands{\def\,{}}
