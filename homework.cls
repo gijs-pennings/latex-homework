@@ -3,7 +3,7 @@
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2022/01/30 Gijs's homework template]
+\ProvidesClass{homework}[2022/04/14 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -105,7 +105,7 @@
 
 % load last: tex.stackexchange.com/q/1863
 % .. and even later: mirrors.ctan.org/macros/latex/contrib/hyperref/doc/hyperref-doc.html#x1-540009
-\RequirePackage[pdfcreator={LaTeX with homework.cls}, pdfusetitle]{hyperref}
+\RequirePackage[pdfusetitle]{hyperref}
 \RequirePackage{ellipsis}           % fixes space after \textellipsis
 
 % renames subsection labels (etc.) to 'section' for \autoref
@@ -114,6 +114,12 @@
     \let\subsubsectionautorefname\sectionautorefname
     \let\paragraphautorefname\sectionautorefname
     \let\subparagraphautorefname\sectionautorefname
+}
+
+% removes boxes around links and sets Creator field
+\hypersetup{
+    hidelinks,
+    pdfcreator={LaTeX with homework.cls}
 }
 
 % removes \, from all text when used for pdf fields (e.g. author)
