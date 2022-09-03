@@ -3,7 +3,7 @@
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2022/04/14 Gijs's homework template]
+\ProvidesClass{homework}[2022/09/14 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -132,10 +132,10 @@
 % --------[ PATCHES ]-----------------------------------------------------------
 
 % fixes inconsistencies with libertinust1math (mathtools's conventions are used)
-\renewcommand*{\vcentcolon}{\!:\!}                                      % both vertical and horizontal spacing is off!
+\renewcommand{\vcentcolon}{\!:\!}                                       % both vertical and horizontal spacing is off!
 \DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
 \DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
-\renewcommand*{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}  % :-  (missing in Libertinus)
+\renewcommand{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}   % :-  (missing in Libertinus)
 \DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
 
 % Without this patch, there is too much vertical spacing above and below the
@@ -189,7 +189,7 @@
     \fi%
 }
 
-\newcommand*{\@exercisesection}{% copied from article.cls and modified
+\newcommand{\@exercisesection}{% copied from article.cls and modified
     \@startsection%
         {exercise}{1}{\z@}%
         {-3.5ex \@plus -1ex \@minus -.2ex}%
@@ -205,7 +205,7 @@
         }%
     }\x%
 }
-\newcommand*{\exercise}{\@ifstar{%
+\newcommand{\exercise}{\@ifstar{%
     \@exercise%
 }{%
     \ifnum\theexercise>0\newpage\fi%
@@ -252,7 +252,7 @@
 % 3.6 of mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
 % \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
 % TODO: \delimsize vs \middle? add \allowbreak? \mathopen, \mathclose correct?
-\newcommand*{\@renewmid}{\renewcommand*{\mid}{%
+\newcommand{\@renewmid}{\renewcommand{\mid}{%
     \mathclose{}%
     \mathchoice{\;}{\;}{\,}{\,}%
     \delimsize\vert%
@@ -280,17 +280,17 @@
 
 % --------[ MACROS: OTHER ]-----------------------------------------------------
 
-\newcommand*{\homeworkauthor}{\texorpdfstring{% tex.stackexchange.com/a/10557
+\newcommand{\homeworkauthor}{\texorpdfstring{% tex.stackexchange.com/a/10557
     G.\,P\kern-.075em.\,S.~Pennings%
 }{%
     G.P.S. Pennings%
 }}
 
 % tex.stackexchange.com/a/42728
-\newcommand*{\numberthis}{\stepcounter{equation}\tag{\theequation}\label}
+\newcommand*{\numberthis}[1]{\stepcounter{equation}\tag{\theequation}\label{#1}}
 
-\newcommand*{\N}{\mathbb N}
-\newcommand*{\Z}{\mathbb Z}
-\newcommand*{\Q}{\mathbb Q}
-\newcommand*{\R}{\mathbb R}
-\newcommand*{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
