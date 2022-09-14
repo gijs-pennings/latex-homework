@@ -257,11 +257,10 @@
 
 % 3.6 of mirrors.ctan.org/macros/latex/contrib/mathtools/mathtools.pdf
 % \mid is of type \mathrel, so \; is used. In (script)script style \, is used.
-% TODO: \delimsize vs \middle? add \allowbreak? \mathopen, \mathclose correct?
 \newcommand{\@renewmid}{\renewcommand{\mid}{%
     \mathclose{}%
     \mathchoice{\;}{\;}{\,}{\,}%
-    \delimsize\vert%
+    \delimsize\vert%\allowbreak
     \mathchoice{\;}{\;}{\,}{\,}%
     \mathopen{}%
 }}
