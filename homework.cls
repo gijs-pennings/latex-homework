@@ -47,7 +47,9 @@
 \DeclareSymbolFont{stix2-operators}{LS1}{stix2}{m}{n}
 \DeclareSymbolFont{stix2-symbols3}{LS1}{stix2bb}{m}{n}
 
-% load fonts before fontenc: tex.stackexchange.com/a/2869
+% Fonts are loaded before fontenc (tex.stackexchange.com/a/2869), and fontenc
+% before inputenc (tex.stackexchange.com/a/44699). Loading inputenc is unneces-
+% sary, but it's kept for compatibility (latexref.xyz/inputenc-package.html).
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 
@@ -230,10 +232,11 @@
 % tex.stackexchange.com/a/113540
 % TODO: add \expandafter to \MakeUppercase?
 \newcommand*{\NewTheorem}[1]{
-    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
+    \def\@name{\MakeUppercase#1}
+    \expandafter\providecommand\csname#1autorefname\endcsname{\@name}
     \newaliascnt{#1}{equation}
-    \newtheorem{#1}[#1]{\MakeUppercase#1}
-    \newtheorem*{#1*}{\MakeUppercase#1}
+    \newtheorem{#1}[#1]{\@name}
+    \newtheorem*{#1*}{\@name}
     \aliascntresetthe{#1} % 1.2 of mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
