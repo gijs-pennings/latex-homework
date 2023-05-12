@@ -1,9 +1,9 @@
-% Copyright (c) 2022, Gijs Pennings. Licensed under the ISC license.
+% Copyright (c) 2023, Gijs Pennings. Licensed under the ISC license.
 % For the full license, documentation, and the latest version, visit
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2022/09/14 Gijs's homework template]
+\ProvidesClass{homework}[2023/05/12 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -235,11 +235,10 @@
 % tex.stackexchange.com/a/113540
 % TODO: add \expandafter to \MakeUppercase?
 \newcommand*{\NewTheorem}[1]{
-    \def\@name{\MakeUppercase#1}
-    \expandafter\providecommand\csname#1autorefname\endcsname{\@name}
+    \expandafter\providecommand\csname#1autorefname\endcsname{\MakeUppercase#1}
     \newaliascnt{#1}{equation}
-    \newtheorem{#1}[#1]{\@name}
-    \newtheorem*{#1*}{\@name}
+    \newtheorem{#1}[#1]{\MakeUppercase#1}
+    \newtheorem*{#1*}{\MakeUppercase#1}
     \aliascntresetthe{#1} % 1.2 of mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
