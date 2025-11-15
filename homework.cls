@@ -57,6 +57,7 @@
 % from ltsect.dtx and modified. Since hyperref also redefines them (to make the
 % pdfusetitle option work, among others), we do it before hyperref is loaded.
 % TODO: could be applied to sections as well
+\def\LibertinusDisplay{}
 \DeclareRobustCommand\title[1]{\gdef\@title{\LibertinusDisplay#1}}
 \DeclareRobustCommand*\author[1]{\gdef\@author{\LibertinusDisplay#1}}
 \DeclareRobustCommand*\date[1]{\gdef\@date{\LibertinusDisplay#1}}
