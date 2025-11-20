@@ -1,9 +1,9 @@
-% Copyright (c) 2023, Gijs Pennings. Licensed under the ISC license.
+% Copyright (c) 2025, Gijs Pennings. Licensed under the ISC license.
 % For the full license, documentation, and the latest version, visit
 % github.com/gijs-pennings/latex-homework.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{homework}[2023/05/12 Gijs's homework template]
+\ProvidesClass{homework}[2025/11/21 Gijs's homework template]
 
 
 % --------[ OPTIONS ]-----------------------------------------------------------
@@ -12,11 +12,9 @@
 \newif\if@altquants
 \newif\if@localnums \@localnumstrue
 \newif\if@narrowmargins \@narrowmarginstrue
-\newif\if@officialeuro
 
 \DeclareOption{altquants}{\@altquantstrue} % while github.com/alerque/libertinus/issues/346 remains open
 \DeclareOption{globalnums}{\@localnumsfalse}
-\DeclareOption{officialeuro}{\@officialeurotrue}
 \DeclareOption{widemargins}{\@narrowmarginsfalse}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -56,7 +54,6 @@
 % Typesets the title etc. in Libertinus Display. These declarations were copied
 % from ltsect.dtx and modified. Since hyperref also redefines them (to make the
 % pdfusetitle option work, among others), we do it before hyperref is loaded.
-% TODO: could be applied to sections as well
 \DeclareRobustCommand\title[1]{\gdef\@title{\LibertinusDisplay#1}}
 \DeclareRobustCommand*\author[1]{\gdef\@author{\LibertinusDisplay#1}}
 \DeclareRobustCommand*\date[1]{\gdef\@date{\LibertinusDisplay#1}}
@@ -84,19 +81,12 @@
 
 % --------[ PACKAGES: OTHER ]---------------------------------------------------
 
-\RequirePackage[a4paper]{geometry}  % to set margins etc.
 \RequirePackage{aliascnt}           % to fix autoref labels for shared counters
+\RequirePackage[a4paper]{geometry}  % to set margins etc.
 \RequirePackage{graphicx}           % to add images and scale text
-\RequirePackage{microtype}          % improves typography
-\RequirePackage[parfill]{parskip}   % separates paragraphs by white space
+\RequirePackage{microtype}          % improves typesetting
+\RequirePackage{parskip}            % separates paragraphs by white space
 \RequirePackage{xurl}               % allows URLs to break (almost) anywhere
-
-\if@officialeuro
-    \RequirePackage[left]{eurosym}
-    \let\@euro\euro
-    \def\euro{\raisebox{.0027em}{\scalebox{.87}{\@euro}}}
-    \DeclareUnicodeCharacter{20AC}{\euro}
-\fi
 
 \if@narrowmargins
     \geometry{margin=1in}
@@ -146,11 +136,15 @@
 % chosen because it requires no additional packages. I think the combination of
 % parskip and the reassignment of \topsep in the original \proof is the cause.
 % 192722, 339440, 522809 on tex.stackexchange.com/q/
-\renewenvironment{proof}[1][\proofname]{%
-    \par\pushQED{\qed}\normalfont% removed: \topsep6\p@\@plus6\p@\relax
-    \trivlist\item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces%
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}%
+    \normalfont % REMOVED: \topsep6\p@\@plus6\p@\relax
+    \trivlist
+    \item[\hskip\labelsep
+          \itshape
+          #1\@addpunct{.}]\ignorespaces
 }{%
-    \popQED\endtrivlist\@endpefalse%
+    \popQED\endtrivlist\@endpefalse
 }
 
 
@@ -224,10 +218,6 @@
 
 % --------[ THEOREMS ]----------------------------------------------------------
 
-\newtheoremstyle{hw-plain}{}{}{\itshape}{}{\bfseries}{ --- }{0pt}{}
-\newtheoremstyle{hw-definition}{}{}{}{}{\bfseries}{ --- }{0pt}{}
-\newtheoremstyle{hw-remark}{}{}{}{}{\itshape}{ --- }{0pt}{} % unused
-
 % The string used by \autoref (e.g. 'Lemma') depends on the counter of the
 % command. Since all theorem-type commands use the equation counter, you'd get
 % the wrong string (i.e. 'Equation'). We fool hyperref by defining an alias
@@ -242,13 +232,13 @@
     \aliascntresetthe{#1} % 1.2 of mirrors.ctan.org/macros/latex/contrib/oberdiek/aliascnt.pdf
 }
 
-\theoremstyle{hw-plain}
+\theoremstyle{plain}
 \NewTheorem{corollary}
 \NewTheorem{lemma}
 \NewTheorem{proposition}
 \NewTheorem{theorem}
 
-\theoremstyle{hw-definition}
+\theoremstyle{definition}
 \NewTheorem{definition}
 
 
