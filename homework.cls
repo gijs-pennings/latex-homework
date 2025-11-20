@@ -51,13 +51,22 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[utf8]{inputenc}
 
-% Typesets the title etc. in Libertinus Display. These declarations were copied
-% from ltsect.dtx and modified. Since hyperref also redefines them (to make the
-% pdfusetitle option work, among others), we do it before hyperref is loaded.
-\DeclareRobustCommand\title[1]{\gdef\@title{\LibertinusDisplay#1}}
-\DeclareRobustCommand*\author[1]{\gdef\@author{\LibertinusDisplay#1}}
-\DeclareRobustCommand*\date[1]{\gdef\@date{\LibertinusDisplay#1}}
-\date\today % reinitializes \date with default value, so correct font is used
+
+% In January 2025, the command for the Libertinus display font was renamed. We
+% select the correct command irrespective of which package version is used.
+\ifdefined\libertinusDisplay
+    \def\homework@displayfont{\libertinusDisplay}  % or \LibertinusSerifDisplay
+\else
+    \def\homework@displayfont{\LibertinusDisplay}
+\fi
+
+% Use Libertinus Serif Display for the title etc. These declarations were copied
+% from `ltsect.dtx` and modified. Before hyperref is loaded, since that package
+% also redefines these commands.
+\DeclareRobustCommand\title[1]{\gdef\@title{\homework@displayfont#1}}
+\DeclareRobustCommand*\author[1]{\gdef\@author{\homework@displayfont#1}}
+\DeclareRobustCommand*\date[1]{\gdef\@date{\homework@displayfont#1}}
+\date{\today}
 
 
 % --------[ PACKAGES: LANGUAGE ]------------------------------------------------
