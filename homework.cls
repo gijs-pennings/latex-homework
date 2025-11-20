@@ -132,12 +132,12 @@
 
 % --------[ PATCHES ]-----------------------------------------------------------
 
-% fixes inconsistencies with libertinust1math (mathtools's conventions are used)
-\renewcommand{\vcentcolon}{\!:\!}                                       % both vertical and horizontal spacing is off!
-\DeclareMathSymbol{\coloneqq}{\mathrel}{symbols}{"65}                   % :=
-\DeclareMathSymbol{\eqqcolon}{\mathrel}{symbols}{"66}                   % =:
-\renewcommand{\coloneq}{\vcentcolon\mathrel{\mkern-1.2mu}\mathrel{-}}   % :-  (missing in Libertinus)
-\DeclareMathSymbol{\eqcolon}{\mathrel}{operators}{"EA}                  % -:
+% add/improve some colon symbols (see mathtools section 3.7.3)
+\def\vcentcolon{:}
+\def\dblcolon{\Colon}
+\def\coloneqq{\coloneq}
+\def\eqqcolon{\eqcolon}
+\def\colondash{\mathrel{\reflectbox{$\dashcolon$}}}
 
 % Without this patch, there is too much vertical spacing above and below the
 % proof environment. I've found no other environments that suffer from this,
