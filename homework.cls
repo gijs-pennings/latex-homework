@@ -162,8 +162,8 @@
 % defines * as \cdot (use \ast for asterisk symbol)
 \DeclareMathSymbol{*}{\mathbin}{symbols}{"0C}
 
-% defines symbol for stochastic independence
-\newcommand{\indep}{\mathrel{\perp\mkern-8mu\perp}}
+\newcommand{\dd}{\:\mathrm d}                           % differential (with medmuskip)
+\newcommand{\indep}{\mathrel{\perp\mkern-8mu\perp}}     % stochastic independence
 
 % swaps definition of \epsilon and \varepsilon
 \DeclareMathSymbol{\epsilon}{\libus@lcgc}{letters}{"22}
